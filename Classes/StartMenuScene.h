@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 
+USING_NS_CC;
+
 class StartMenuScene : public cocos2d::Scene
 {
 public:
@@ -12,9 +14,18 @@ public:
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
+
+	// Колбек на старт игры
+	void startgame(cocos2d::Ref* sender);
+	void startgame_callback();
     
+
+
     // implement the "static create()" method manually
     CREATE_FUNC(StartMenuScene);
+
+private:
+  MenuItemSprite * start_game;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
