@@ -19,13 +19,16 @@ public:
 	void startgame(cocos2d::Ref* sender);
 	void startgame_callback();
     
-
+	// Колбек для выхода из игры
+	void exitgame(cocos2d::Ref* sender);
+	void exitgame_callback();
 
     // implement the "static create()" method manually
     CREATE_FUNC(StartMenuScene);
 
 private:
   MenuItemSprite * start_game;
+  MenuItemSprite * exit_game;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
