@@ -47,10 +47,11 @@ bool StartMenuScene::init()
     // add a label shows "Mirage"
     // create and initialize a label
 
-    auto label = Label::createWithTTF("Mirage", "fonts/Marker Felt.ttf", 36);
+    auto label = Label::createWithTTF("Mirage", "fonts/SketchFlow Print.ttf", 36);
+	label->setColor(Color3B::WHITE);
     if (label == nullptr)
     {
-        problemLoading("'fonts/Marker Felt.ttf'");
+        problemLoading("'fonts/SketchFlow Print.ttf'");
     }
     else
     {
