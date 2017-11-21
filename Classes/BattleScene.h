@@ -5,10 +5,25 @@
 
 USING_NS_CC;
 
-struct Unit {
+enum class UnitState {
+	Running,
+	Attacking,
+	Dead
+};
+
+class BattleScene;
+
+class Unit {
+public:
 	Sprite* sprite;
 	int hp;
+	int damage;
+	int defense;
+	UnitState state;
+
+	virtual void AddToBattleScene(BattleScene * scene) = 0;
 };
+
 
 class BattleScene : public cocos2d::Scene
 {
@@ -24,7 +39,9 @@ public:
 
 	~BattleScene();
 
-	void unit1_select_callback();
+	void AddUnit(Unit* unit);
+
+	void unit_select_callback(int i);
 	
 	void unit2_select_callback();
 
@@ -64,9 +81,72 @@ private:
 	MenuItemSprite * unit9_menu;
 	MenuItemSprite * unit10_menu;
 
-	std::vector<Unit> units_player;
-	std::vector<Unit> units_computer;
+	std::vector<Unit*> units_player;
+	std::vector<Unit*> units_computer;
 
 };
+
+
+class Unit1 : public Unit {
+public:
+	Unit1() {
+		hp = 100;
+		damage = 20;
+		defense = 5;
+		state = UnitState::Running;
+	};
+
+	virtual void AddToBattleScene(BattleScene * scene)
+	{
+		sprite = Sprite::create("unit1_norma.png");
+		sprite->setPosition(Vec2(45, 100));
+		sprite->setScale(0.5);
+		scene->addChild(sprite);
+
+		scene->AddUnit(this);
+
+		auto moveBy1 = MoveBy::create(4, Vec2(400, 0));
+		sprite->runAction(moveBy1);
+	}
+};
+
+class TowerPlayer : public Unit {
+public:
+	TowerPlayer() {
+		hp = 1000;
+		damage = 0;
+		defense = 10;
+		state = UnitState::Running;
+	};
+
+	virtual void AddToBattleScene(BattleScene * scene)
+	{
+		sprite = Sprite::create("Tower1.png");
+		sprite->setPosition(Vec2(32, 110));
+		sprite->setScale(0.15);
+		scene->addChild(sprite);
+		scene->AddUnit(this);
+	}
+};
+
+class TowerComputer : public Unit {
+public:
+	TowerComputer() {
+		hp = 1000;
+		damage = 0;
+		defense = 10;
+		state = UnitState::Running;
+	};
+
+	virtual void AddToBattleScene(BattleScene * scene)
+	{
+		sprite = Sprite::create("Tower2.png");
+		sprite->setPosition(Vec2(450, 110));
+		sprite->setScale(0.15);
+		scene->addChild(sprite);
+		scene->AddUnit(this);
+	}
+};
+
 
 //void unit1_select(Ref* sender, ui::Widget::TouchEventType type);
