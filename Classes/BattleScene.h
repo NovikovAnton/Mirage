@@ -11,6 +11,11 @@ enum class UnitState {
 	Dead
 };
 
+enum class Team {
+	Player,
+	Computer
+};
+
 class BattleScene;
 
 class Unit {
@@ -20,8 +25,12 @@ public:
 	int damage;
 	int defense;
 	UnitState state;
+	Team team;
 
 	virtual void AddToBattleScene(BattleScene * scene) = 0;
+
+	void ReceiveAttackFromUnit(Unit* enemy);
+	void UpdateState();
 };
 
 
@@ -41,31 +50,12 @@ public:
 
 	void AddUnit(Unit* unit);
 
+	void RemoveDeadUnit(Unit* unit);
+	void unit_dead_callback(Unit* unit);
+
 	void unit_select_callback(int i);
-	
-	void unit2_select_callback();
-
-	void unit3_select_callback();
-
-	void unit4_select_callback();
-
-	void unit5_select_callback();
-
-	void unit6_select_callback();
-
-	void unit7_select_callback();
-
-	void unit8_select_callback();
-
-	void unit9_select_callback();
-
-	void unit10_select_callback();
 
 private:
-	CC_SYNTHESIZE(cocos2d::ProgressTimer*, hpView, HPView);
-	CC_SYNTHESIZE(int, score, Score)
-		CC_SYNTHESIZE(cocos2d::LabelAtlas*, scoreLabel, ScoreLabel);
-	void increaseScore(float dt);
 	void ShowGameOver(Ref* pObj);
 
 	void updateGame(float dt);
@@ -81,9 +71,10 @@ private:
 	MenuItemSprite * unit9_menu;
 	MenuItemSprite * unit10_menu;
 
-	std::vector<Unit*> units_player;
-	std::vector<Unit*> units_computer;
+	std::vector<Unit*> units;
 
+	Unit* player_tower;
+	Unit* computer_tower;
 };
 
 
@@ -110,10 +101,217 @@ public:
 	}
 };
 
+class Unit2 : public Unit {
+public:
+	Unit2() {
+		hp = 150;
+		damage = 30;
+		defense = 7;
+		state = UnitState::Running;
+	};
+
+	virtual void AddToBattleScene(BattleScene * scene)
+	{
+		sprite = Sprite::create("unit2_norma.png");
+		sprite->setPosition(Vec2(45, 100));
+		sprite->setScale(0.5);
+		scene->addChild(sprite);
+
+		scene->AddUnit(this);
+
+		auto moveBy1 = MoveBy::create(4, Vec2(400, 0));
+		sprite->runAction(moveBy1);
+	}
+};
+
+class Unit3 : public Unit {
+public:
+	Unit3() {
+		hp = 400;
+		damage = 20;
+		defense = 10;
+		state = UnitState::Running;
+	};
+
+	virtual void AddToBattleScene(BattleScene * scene)
+	{
+		sprite = Sprite::create("unit3_norma.png");
+		sprite->setPosition(Vec2(45, 100));
+		sprite->setScale(0.5);
+		scene->addChild(sprite);
+
+		scene->AddUnit(this);
+
+		auto moveBy1 = MoveBy::create(4, Vec2(400, 0));
+		sprite->runAction(moveBy1);
+	}
+};
+
+class Unit4 : public Unit {
+public:
+	Unit4() {
+		hp = 250;
+		damage = 50;
+		defense = 15;
+		state = UnitState::Running;
+	};
+
+	virtual void AddToBattleScene(BattleScene * scene)
+	{
+		sprite = Sprite::create("unit4_norma.png");
+		sprite->setPosition(Vec2(45, 100));
+		sprite->setScale(0.5);
+		scene->addChild(sprite);
+
+		scene->AddUnit(this);
+
+		auto moveBy1 = MoveBy::create(4, Vec2(400, 0));
+		sprite->runAction(moveBy1);
+	}
+};
+
+class Unit5 : public Unit {
+public:
+	Unit5() {
+		hp = 500;
+		damage = 80;
+		defense = 25;
+		state = UnitState::Running;
+	};
+
+	virtual void AddToBattleScene(BattleScene * scene)
+	{
+		sprite = Sprite::create("unit5_norma.png");
+		sprite->setPosition(Vec2(45, 100));
+		sprite->setScale(0.5);
+		scene->addChild(sprite);
+
+		scene->AddUnit(this);
+
+		auto moveBy1 = MoveBy::create(4, Vec2(400, 0));
+		sprite->runAction(moveBy1);
+	}
+};
+
+class Unit6 : public Unit {
+public:
+	Unit6() {
+		hp = 100;
+		damage = 25;
+		defense = 0;
+		state = UnitState::Running;
+	};
+
+	virtual void AddToBattleScene(BattleScene * scene)
+	{
+		sprite = Sprite::create("unit6_norma.png");
+		sprite->setPosition(Vec2(45, 100));
+		sprite->setScale(0.5);
+		scene->addChild(sprite);
+
+		scene->AddUnit(this);
+
+		auto moveBy1 = MoveBy::create(4, Vec2(400, 0));
+		sprite->runAction(moveBy1);
+	}
+};
+
+class Unit7 : public Unit {
+public:
+	Unit7() {
+		hp = 100;
+		damage = 50;
+		defense = 3;
+		state = UnitState::Running;
+	};
+
+	virtual void AddToBattleScene(BattleScene * scene)
+	{
+		sprite = Sprite::create("unit7_norma.png");
+		sprite->setPosition(Vec2(45, 100));
+		sprite->setScale(0.5);
+		scene->addChild(sprite);
+
+		scene->AddUnit(this);
+
+		auto moveBy1 = MoveBy::create(4, Vec2(400, 0));
+		sprite->runAction(moveBy1);
+	}
+};
+
+class Unit8 : public Unit {
+public:
+	Unit8() {
+		hp = 200;
+		damage = 20;
+		defense = 15;
+		state = UnitState::Running;
+	};
+
+	virtual void AddToBattleScene(BattleScene * scene)
+	{
+		sprite = Sprite::create("unit8_norma.png");
+		sprite->setPosition(Vec2(45, 100));
+		sprite->setScale(0.5);
+		scene->addChild(sprite);
+
+		scene->AddUnit(this);
+
+		auto moveBy1 = MoveBy::create(4, Vec2(400, 0));
+		sprite->runAction(moveBy1);
+	}
+};
+
+class Unit9 : public Unit {
+public:
+	Unit9() {
+		hp = 500;
+		damage = 20;
+		defense = 25;
+		state = UnitState::Running;
+	};
+
+	virtual void AddToBattleScene(BattleScene * scene)
+	{
+		sprite = Sprite::create("unit9_norma.png");
+		sprite->setPosition(Vec2(45, 100));
+		sprite->setScale(0.5);
+		scene->addChild(sprite);
+
+		scene->AddUnit(this);
+
+		auto moveBy1 = MoveBy::create(4, Vec2(400, 0));
+		sprite->runAction(moveBy1);
+	}
+};
+
+class Unit10 : public Unit {
+public:
+	Unit10() {
+		hp = 500;
+		damage = 80;
+		defense = 25;
+		state = UnitState::Running;
+	};
+
+	virtual void AddToBattleScene(BattleScene * scene)
+	{
+		sprite = Sprite::create("unit10_norma.png");
+		sprite->setPosition(Vec2(45, 100));
+		sprite->setScale(0.5);
+		scene->addChild(sprite);
+
+		scene->AddUnit(this);
+
+		auto moveBy1 = MoveBy::create(4, Vec2(400, 0));
+		sprite->runAction(moveBy1);
+	}
+};
+
 class TowerPlayer : public Unit {
 public:
 	TowerPlayer() {
-		hp = 1000;
+		hp = 2500;
 		damage = 0;
 		defense = 10;
 		state = UnitState::Running;
@@ -132,7 +330,7 @@ public:
 class TowerComputer : public Unit {
 public:
 	TowerComputer() {
-		hp = 1000;
+		hp = 2500;
 		damage = 0;
 		defense = 10;
 		state = UnitState::Running;

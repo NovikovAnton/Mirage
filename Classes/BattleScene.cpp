@@ -14,8 +14,29 @@ BattleScene::~BattleScene()
 
 void BattleScene::AddUnit(Unit * unit)
 {
-	units_player.push_back(unit);
+	units.push_back(unit);
 }
+
+void BattleScene::RemoveDeadUnit(Unit * unit)
+{
+	//unit->sprite->runAction(Sequence::create(
+	//	/*RotateTo::create(0.1f, 45, -45),*/
+	//	ScaleTo::create(0.1f, 1.1f),
+	//	CallFunc::create(CC_CALLBACK_0(BattleScene::unit_select_callback, this, 3)), NULL));
+	unit_dead_callback(unit);
+}
+
+void BattleScene::unit_dead_callback(Unit* unit)
+{
+	this->removeChild(unit->sprite, true);
+	for (int i = 0; i < units.size(); ++i)
+		if (units[i] == unit) 
+		{
+			units.erase(units.begin() +i);
+			return;
+		}
+}
+
 
 static void problemLoading(const char* filename)
 {
@@ -128,15 +149,16 @@ bool BattleScene::init()
 
 
 	// Добавление башни №1
-	auto tower1 = new TowerPlayer();
-	tower1->AddToBattleScene(this);
+	player_tower = new TowerPlayer();
+	player_tower->AddToBattleScene(this);
+	player_tower->team = Team::Player;
 
 	// Добавление башни №2 
-	auto tower2 = new TowerComputer();
-	tower2->AddToBattleScene(this);
+	computer_tower = new TowerComputer();
+	computer_tower->AddToBattleScene(this);
+	computer_tower->team = Team::Computer;
 
-
-	//************* adds unit1 game ***********
+	//************* adds unit1 button ***********
 	auto unit1_normal = Sprite::create("unit1_norma.png");
 	//auto start_pressed = Sprite::create("start_pres.png");
 	if (unit1_normal == nullptr )
@@ -158,7 +180,7 @@ bool BattleScene::init()
 
 	this->addChild(button_unit1);
 
-	//************* adds unit2 game ***********
+	//************* adds unit2 button ***********
 
 	auto unit2_normal = Sprite::create("unit2_norma.png");
 	//auto start_pressed = Sprite::create("start_pres.png");
@@ -175,14 +197,14 @@ bool BattleScene::init()
 		if (type == ui::Widget::TouchEventType::ENDED)
 		{
 			button_unit2->runAction(Sequence::create(
-				CallFunc::create(CC_CALLBACK_0(BattleScene::unit2_select_callback, this)), NULL));
+				CallFunc::create(CC_CALLBACK_0(BattleScene::unit_select_callback, this, 2)), NULL));
 		}
 	});
 
 	this->addChild(button_unit2);
 
 	
-	//************* adds unit3 game ***********
+	//************* adds unit3 button ***********
 	auto unit3_normal = Sprite::create("unit3_norma.png");
 	//auto start_pressed = Sprite::create("start_pres.png");
 	if (unit3_normal == nullptr)
@@ -198,14 +220,14 @@ bool BattleScene::init()
 		if (type == ui::Widget::TouchEventType::ENDED)
 		{
 			button_unit3->runAction(Sequence::create(
-				CallFunc::create(CC_CALLBACK_0(BattleScene::unit3_select_callback, this)), NULL));
+				CallFunc::create(CC_CALLBACK_0(BattleScene::unit_select_callback, this, 3)), NULL));
 		}
 	});
 
 	this->addChild(button_unit3);
 
 
-	//************* adds unit4 game ***********
+	//************* adds unit4 button ***********
 	auto unit4_normal = Sprite::create("unit4_norma.png");
 	//auto start_pressed = Sprite::create("start_pres.png");
 	if (unit4_normal == nullptr)
@@ -221,7 +243,7 @@ bool BattleScene::init()
 		if (type == ui::Widget::TouchEventType::ENDED)
 		{
 			button_unit4->runAction(Sequence::create(
-				CallFunc::create(CC_CALLBACK_0(BattleScene::unit4_select_callback, this)), NULL));
+				CallFunc::create(CC_CALLBACK_0(BattleScene::unit_select_callback, this, 4)), NULL));
 		}
 	});
 
@@ -229,7 +251,7 @@ bool BattleScene::init()
 
 
 
-	////************* adds unit5 game ***********
+	////************* adds unit5 button ***********
 	auto unit5_normal = Sprite::create("unit5_norma.png");
 	//auto start_pressed = Sprite::create("start_pres.png");
 	if (unit5_normal == nullptr)
@@ -245,13 +267,13 @@ bool BattleScene::init()
 		if (type == ui::Widget::TouchEventType::ENDED)
 		{
 			button_unit5->runAction(Sequence::create(
-				CallFunc::create(CC_CALLBACK_0(BattleScene::unit5_select_callback, this)), NULL));
+				CallFunc::create(CC_CALLBACK_0(BattleScene::unit_select_callback, this, 5)), NULL));
 		}
 	});
 
 	this->addChild(button_unit5);
 
-	//************* adds unit6 game ***********
+	//************* adds unit6 button ***********
 	auto unit6_normal = Sprite::create("unit6_norma.png");
 	//auto start_pressed = Sprite::create("start_pres.png");
 	if (unit6_normal == nullptr)
@@ -262,7 +284,7 @@ bool BattleScene::init()
 	unit6_menu->setPosition(Vec2(origin.x + 290, origin.y + 5));
 	unit6_menu->setScale(1.0);
 
-	//************* adds unit7 game ***********
+	//************* adds unit7 button ***********
 	auto unit7_normal = Sprite::create("unit7_norma.png");
 	//auto start_pressed = Sprite::create("start_pres.png");
 	if (unit7_normal == nullptr)
@@ -273,7 +295,7 @@ bool BattleScene::init()
 	unit7_menu->setPosition(Vec2(origin.x + 330, origin.y - 7));
 	unit7_menu->setScale(1.0);
 
-	//************* adds unit8 game ***********
+	//************* adds unit8 button ***********
 	auto unit8_normal = Sprite::create("unit8_norma.png");
 	//auto start_pressed = Sprite::create("start_pres.png");
 	if (unit8_normal == nullptr)
@@ -284,7 +306,7 @@ bool BattleScene::init()
 	unit8_menu->setPosition(Vec2(origin.x + 365, origin.y ));
 	unit8_menu->setScale(1.0);
 
-	//************* adds unit9 game ***********
+	//************* adds unit9 button ***********
 	auto unit9_normal = Sprite::create("unit9_norma.png");
 	//auto start_pressed = Sprite::create("start_pres.png");
 	if (unit9_normal == nullptr)
@@ -295,7 +317,7 @@ bool BattleScene::init()
 	unit9_menu->setPosition(Vec2(origin.x + 410, origin.y - 2));
 	unit9_menu->setScale(1.0);
 
-	//************* adds unit10 game ***********
+	//************* adds unit10 button ***********
 	auto unit10_normal = Sprite::create("unit10_norma.png");
 	//auto start_pressed = Sprite::create("start_pres.png");
 	if (unit10_normal == nullptr)
@@ -326,60 +348,32 @@ bool BattleScene::init()
 
 void BattleScene::updateGame(float dt)
 {
+	for (auto unit_a : units)
+		for (auto unit_b : units)
+			if ((unit_a != unit_b) && (unit_a->sprite->boundingBox().intersectsRect(unit_b->sprite->boundingBox())))
+			{
+				if ((unit_a == player_tower && unit_b->team == Team::Player) ||
+					(unit_b == player_tower && unit_a->team == Team::Player))
+					continue;
 
-	std::vector<Unit*> units_to_stop;
+				unit_a->sprite->stopAllActions();
+				unit_b->sprite->stopAllActions();
 
-	for (auto player_unit : units_player)
-	{
-		auto s = player_unit->sprite;
-		auto player_unit_rect = s->boundingBox();
+				if (unit_a->team != unit_b->team)
+				{
+					unit_a->state = UnitState::Attacking;
+					unit_b->state = UnitState::Attacking;
 
-		for (auto computer_unit : units_computer)
-		{
-			auto s = computer_unit->sprite;
-			auto computer_unit_rect = s->boundingBox();
-			
-			//this->addChild(computer_unit_rect);
-
-			if (player_unit_rect.intersectsRect(computer_unit_rect)) {
-				units_to_stop.push_back(computer_unit);
-				units_to_stop.push_back(player_unit);
-
-				//std::string s1 = "computer:" + std::to_string(computer_unit.sprite->getPosition().x) + " " + std::to_string(computer_unit.sprite->getPosition().y);
-				//std::string s2 = "player:" + std::to_string(player_unit.sprite->getPosition().x) + " " + std::to_string(player_unit.sprite->getPosition().y);
-
-				//auto label1 = Label::createWithTTF(s1, "fonts/Marker Felt.ttf", 14);
-				//label1->setColor(Color3B::BLACK);
-				//label1->setPosition(Vec2(200, 200));
-				//this->addChild(label1);
-				//
-				//auto label2 = Label::createWithTTF(s2, "fonts/Marker Felt.ttf", 14);
-				//label2->setColor(Color3B::BLACK);
-				//label2->setPosition(Vec2(200, 150));
-				//this->addChild(label2);
-
-				//auto box1 = DrawNode::create();
-
-				// box1->drawRect(Vec2(player_unit.sprite->getPosition().x - (player_unit.sprite->getContentSize().width / 2), player_unit.sprite->getPosition().y - (player_unit.sprite->getContentSize().height / 2)),
-				// 	Vec2(player_unit.sprite->getContentSize().width, player_unit.sprite->getContentSize().height), Color4F::RED);
-
-				
-				//box1->drawRect(player_unit.sprite->boundingBox().origin, player_unit.sprite->boundingBox().origin + player_unit.sprite->boundingBox().size, Color4F::RED);
-
-				//box1->setLineWidth(2);
-				//this->addChild(box1); // this being a node or scene
-
-				//auto box2 = DrawNode::create();
-
-				//box2->drawRect(computer_unit.sprite->boundingBox().origin, computer_unit.sprite->boundingBox().origin + computer_unit.sprite->boundingBox().size, Color4F::BLUE);
-				//box2->setLineWidth(2);
-				//this->addChild(box2); // this being a node or scene
+					unit_a->ReceiveAttackFromUnit(unit_b);
+					unit_b->ReceiveAttackFromUnit(unit_a);
+				}
 			}
-		}
 
-		for (auto unit : units_to_stop)
-			unit->sprite->stopAllActions();
-	}
+	// Удаление всех мертвых юнитов
+	for (auto unit : units)
+		if (unit->state == UnitState::Dead)
+			this->RemoveDeadUnit(unit);
+
 }
 
 //void BattleScene::unit2_select(Ref* sender)
@@ -406,99 +400,72 @@ void BattleScene::updateGame(float dt)
 
 void BattleScene::unit_select_callback(int i)
 {
+	Unit* unit = nullptr;
+
 	switch (i) {
 	case 1:
-		auto unit = new Unit1();
-		unit->AddToBattleScene(this);
-
+		unit = new Unit1();
+		break;
+	case 2:
+		unit = new Unit2();
+		break;
+	case 3:
+		unit = new Unit3();
+		break;
+	case 4:
+		unit = new Unit4();
+		break;
+	case 5:
+		unit = new Unit5();
 		break;
 	}
 
+	unit->team = Team::Player;
+	unit->AddToBattleScene(this);
 }
 
-void BattleScene::unit2_select_callback()
-{
-	auto unit = Sprite::create("unit2_norma.png");
-	unit->setPosition(Vec2(45, 100));
-	unit->setScale(0.5);
-	addChild(unit);
 
-	auto moveBy2 = MoveBy::create(4, Vec2(400, 0));
-	unit->runAction(moveBy2);
-}
 
-void BattleScene::unit3_select_callback()
-{
-	auto unit = Sprite::create("unit3_norma.png");
-	unit->setPosition(Vec2(45, 100));
-	unit->setScale(0.5);
-	addChild(unit);
+//void BattleScene::unit6_select_callback()
+//{
+//	//auto scene = BattleScene::createScene();
+//	//Director::getInstance()->replaceScene(scene);
+//}
+//
+//void BattleScene::unit7_select_callback()
+//{
+//	//auto scene = BattleScene::createScene();
+//	//Director::getInstance()->replaceScene(scene);
+//}
+//
+//void BattleScene::unit8_select_callback()
+//{
+//	//auto scene = BattleScene::createScene();
+//	//Director::getInstance()->replaceScene(scene);
+//}
+//
+//void BattleScene::unit9_select_callback()
+//{
+//	//auto scene = BattleScene::createScene();
+//	//Director::getInstance()->replaceScene(scene);
+//}
+//
+//void BattleScene::unit10_select_callback()
+//{
+//	//auto scene = BattleScene::createScene();
+//	//Director::getInstance()->replaceScene(scene);
+//}
 
-	auto moveBy3 = MoveBy::create(4, Vec2(400, 0));
-	unit->runAction(moveBy3);
-}
 
-void BattleScene::unit4_select_callback()
-{
-	auto unit = Sprite::create("unit4_norma.png");
-	unit->setPosition(Vec2(45, 100));
-	unit->setScale(0.5);
-	addChild(unit);
-
-	auto moveBy4 = MoveBy::create(4, Vec2(400, 0));
-	unit->runAction(moveBy4);
-}
-
-void BattleScene::unit5_select_callback()
-{
-	auto unit = Sprite::create("unit5_norma.png");
-	unit->setPosition(Vec2(45, 100));
-	unit->setScale(0.5);
-	addChild(unit);
-
-	auto moveBy5 = MoveBy::create(4, Vec2(400, 0));
-	unit->runAction(moveBy5);
-}
-
-void BattleScene::unit6_select_callback()
-{
-	//auto scene = BattleScene::createScene();
-	//Director::getInstance()->replaceScene(scene);
-}
-
-void BattleScene::unit7_select_callback()
-{
-	//auto scene = BattleScene::createScene();
-	//Director::getInstance()->replaceScene(scene);
-}
-
-void BattleScene::unit8_select_callback()
-{
-	//auto scene = BattleScene::createScene();
-	//Director::getInstance()->replaceScene(scene);
-}
-
-void BattleScene::unit9_select_callback()
-{
-	//auto scene = BattleScene::createScene();
-	//Director::getInstance()->replaceScene(scene);
-}
-
-void BattleScene::unit10_select_callback()
-{
-	//auto scene = BattleScene::createScene();
-	//Director::getInstance()->replaceScene(scene);
-}
-
-void BattleScene::increaseScore(float dt) {
-	this->score++;
-	std::stringstream ss;
-	std::string str;
-	ss << score;
-	ss >> str;
-	const char *p = str.c_str();
-	scoreLabel->setString(p);
-}
+//void BattleScene::increaseScore(float dt) {
+//	this->score++;
+//	std::stringstream ss;
+//	std::string str;
+//	ss << score;
+//	ss >> str;
+//	const char *p = str.c_str();
+//	scoreLabel->setString(p);
+//}
 
 void BattleScene::ShowGameOver(Ref* pObj)
 {
@@ -507,4 +474,22 @@ void BattleScene::ShowGameOver(Ref* pObj)
 	//    EnemyController::reset();
 	//auto gameoverlayer = GameOverLayer::create(this->score);
 	//addChild(gameoverlayer, 10);
+}
+
+void Unit::ReceiveAttackFromUnit(Unit * enemy)
+{
+	int d;
+	if (enemy->damage > this->defense) 
+		d = enemy->damage - this->defense;
+	else
+		d = 0;
+
+	this->hp = this->hp - d;
+	this->UpdateState();
+}
+
+void Unit::UpdateState()
+{
+	if (this->hp <= 0)
+		this->state = UnitState::Dead;
 }
