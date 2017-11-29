@@ -24,8 +24,11 @@ public:
 	int hp;
 	int damage;
 	int defense;
+	int speed;	
 	UnitState state;
 	Team team;
+
+	bool isTower;
 
 	virtual void AddToBattleScene(BattleScene * scene) = 0;
 
@@ -60,16 +63,13 @@ private:
 
 	void updateGame(float dt);
 
+	bool UnitCanGo(Unit* unit);
+
 	ui::Button * button_unit1;
 	ui::Button * button_unit2;
 	ui::Button * button_unit3;
 	ui::Button * button_unit4;
 	ui::Button * button_unit5;
-	MenuItemSprite * unit6_menu;
-	MenuItemSprite * unit7_menu;
-	MenuItemSprite * unit8_menu;
-	MenuItemSprite * unit9_menu;
-	MenuItemSprite * unit10_menu;
 
 	std::vector<Unit*> units;
 
@@ -84,6 +84,8 @@ public:
 		hp = 100;
 		damage = 20;
 		defense = 5;
+		speed = 10;
+		isTower = false;
 		state = UnitState::Running;
 	};
 
@@ -314,6 +316,8 @@ public:
 		hp = 2500;
 		damage = 0;
 		defense = 10;
+		isTower = true;
+		speed = 0;
 		state = UnitState::Running;
 	};
 
@@ -331,8 +335,10 @@ class TowerComputer : public Unit {
 public:
 	TowerComputer() {
 		hp = 2500;
-		damage = 0;
+		damage = 5;
 		defense = 10;
+		isTower = true;
+		speed = 0;
 		state = UnitState::Running;
 	};
 
