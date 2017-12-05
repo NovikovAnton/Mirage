@@ -76,25 +76,29 @@ bool BattleScene::init()
 		return false;
 	}
 
+	IsGameOver = false;
+
+	ai.bs = this;
+
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	// add "StartMenuScene" splash screen"
-	auto sprite = Sprite::create("Battle.png");
+	// Устанавливаем фон для второй сцены
+	auto sprite = Sprite::create("Battle.png");	
 	if (sprite == nullptr)
 	{
 		problemLoading("'Battle.png'");
 	}
 	else
 	{
-		// position the sprite on the center of the screen
+		// Устанавливаем место положения фоновой картинки, координаты показывают центр окна
 		sprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 
 		// add the sprite as a child to this layer
 		this->addChild(sprite);
 	}
 
-	// Создание фона "Mirage"
+	// Создание надписи "Battle"
 
 	auto label1 = Label::createWithTTF("Battle", "fonts/Marker Felt.ttf", 14);
 	label1->setColor(Color3B::BLACK);
@@ -104,7 +108,7 @@ bool BattleScene::init()
 	}
 	else
 	{
-		// position the label on the center of the screen
+		// Устанавливаем положение надписи
 		label1->setPosition(Vec2(origin.x + visibleSize.width / 2,
 			origin.y + visibleSize.height - label1->getContentSize().height));
 
@@ -113,7 +117,7 @@ bool BattleScene::init()
 	}
 
 
-	// Надпись красной команды
+	// Создание надписи "красной команды"
 	auto label2 = Label::createWithTTF("Red team", "fonts/Marker Felt.ttf", 14);
 	label2->setColor(Color3B::RED);
 	if (label2 == nullptr)
@@ -122,7 +126,7 @@ bool BattleScene::init()
 	}
 	else
 	{
-		// position the label on the center of the screen
+		// Устанавливаем положение надписи
 		label2->setPosition(Vec2(origin.x + 30, origin.y + 255));
 
 		// add the label as a child to this layer
@@ -130,7 +134,7 @@ bool BattleScene::init()
 	}
 
 
-	// Надпись синей команды команды
+	// Создание надписи "синей команды"
 	auto label3 = Label::createWithTTF("Blue team", "fonts/Marker Felt.ttf", 14);
 	label3->setColor(Color3B::BLUE);
 	if (label3 == nullptr)
@@ -158,9 +162,8 @@ bool BattleScene::init()
 	computer_tower->AddToBattleScene(this);
 	computer_tower->team = Team::Computer;
 
-	//************* adds unit1 button ***********
+	//************* Создание кнопки для unit1  ***********
 	auto unit1_normal = Sprite::create("unit1_norma.png");
-	//auto start_pressed = Sprite::create("start_pres.png");
 	if (unit1_normal == nullptr )
 	{
 		problemLoading("'start_normal or start_pressed.png'");
@@ -180,10 +183,9 @@ bool BattleScene::init()
 
 	this->addChild(button_unit1);
 
-	//************* adds unit2 button ***********
+	//************* Создание кнопки для unit2 ***********
 
 	auto unit2_normal = Sprite::create("unit2_norma.png");
-	//auto start_pressed = Sprite::create("start_pres.png");
 	if (unit2_normal == nullptr)
 	{
 		problemLoading("'start_normal or start_pressed.png'");
@@ -204,9 +206,8 @@ bool BattleScene::init()
 	this->addChild(button_unit2);
 
 	
-	//************* adds unit3 button ***********
+	//************* Создание кнопки для unit3 ***********
 	auto unit3_normal = Sprite::create("unit3_norma.png");
-	//auto start_pressed = Sprite::create("start_pres.png");
 	if (unit3_normal == nullptr)
 	{
 		problemLoading("'start_normal or start_pressed.png'");
@@ -227,9 +228,8 @@ bool BattleScene::init()
 	this->addChild(button_unit3);
 
 
-	//************* adds unit4 button ***********
+	//************* Создание кнопки для unit4 ***********
 	auto unit4_normal = Sprite::create("unit4_norma.png");
-	//auto start_pressed = Sprite::create("start_pres.png");
 	if (unit4_normal == nullptr)
 	{
 		problemLoading("'start_normal or start_pressed.png'");
@@ -251,9 +251,8 @@ bool BattleScene::init()
 
 
 
-	////************* adds unit5 button ***********
+	////************* Создание кнопки для unit5 ***********
 	auto unit5_normal = Sprite::create("unit5_norma.png");
-	//auto start_pressed = Sprite::create("start_pres.png");
 	if (unit5_normal == nullptr)
 	{
 		problemLoading("'start_normal or start_pressed.png'");
@@ -274,74 +273,54 @@ bool BattleScene::init()
 	this->addChild(button_unit5);
 
 	////************* adds unit6 button ***********
-	//auto unit6_normal = Sprite::create("unit6_norma.png");
-	////auto start_pressed = Sprite::create("start_pres.png");
-	//if (unit6_normal == nullptr)
-	//{
-	//	problemLoading("'start_normal or start_pressed.png'");
-	//}
-	//unit6_menu = MenuItemSprite::create(unit6_normal, unit6_normal, nullptr);
-	//unit6_menu->setPosition(Vec2(origin.x + 290, origin.y + 5));
-	//unit6_menu->setScale(1.0);
-
-	////************* adds unit7 button ***********
-	//auto unit7_normal = Sprite::create("unit7_norma.png");
-	////auto start_pressed = Sprite::create("start_pres.png");
-	//if (unit7_normal == nullptr)
-	//{
-	//	problemLoading("'start_normal or start_pressed.png'");
-	//}
-	//unit7_menu = MenuItemSprite::create(unit7_normal, unit7_normal, nullptr);
-	//unit7_menu->setPosition(Vec2(origin.x + 330, origin.y - 7));
-	//unit7_menu->setScale(1.0);
-
-	////************* adds unit8 button ***********
-	//auto unit8_normal = Sprite::create("unit8_norma.png");
-	////auto start_pressed = Sprite::create("start_pres.png");
-	//if (unit8_normal == nullptr)
-	//{
-	//	problemLoading("'start_normal or start_pressed.png'");
-	//}
-	//unit8_menu = MenuItemSprite::create(unit8_normal, unit8_normal, nullptr);
-	//unit8_menu->setPosition(Vec2(origin.x + 365, origin.y ));
-	//unit8_menu->setScale(1.0);
-
-	////************* adds unit9 button ***********
-	//auto unit9_normal = Sprite::create("unit9_norma.png");
-	////auto start_pressed = Sprite::create("start_pres.png");
-	//if (unit9_normal == nullptr)
-	//{
-	//	problemLoading("'start_normal or start_pressed.png'");
-	//}
-	//unit9_menu = MenuItemSprite::create(unit9_normal, unit9_normal, nullptr);
-	//unit9_menu->setPosition(Vec2(origin.x + 410, origin.y - 2));
-	//unit9_menu->setScale(1.0);
-
-	//************* adds unit10 button ***********
-	auto unit10_normal = Sprite::create("unit10_norma.png");
-	//auto start_pressed = Sprite::create("start_pres.png");
-	if (unit10_normal == nullptr)
+	auto unit6_normal = Sprite::create("unit6_norma.png");
+	if (unit6_normal == nullptr)
 	{
 		problemLoading("'start_normal or start_pressed.png'");
 	}
+	auto unit6_menu = Sprite::create("unit6_norma.png");
+	unit6_menu->setPosition(Vec2(origin.x + 285, origin.y + 20));
+	unit6_menu->setScale(0.5);
+	addChild(unit6_menu);
+
+	////************* adds unit7 button ***********
+	auto unit7_normal = Sprite::create("unit7_norma.png");
+	if (unit7_normal == nullptr)
+	{
+		problemLoading("'start_normal or start_pressed.png'");
+	}
+	auto unit7_menu = Sprite::create("unit7_norma.png");
+	unit7_menu->setPosition(Vec2(origin.x + 325, origin.y + 17));
+	unit7_menu->setScale(0.62);
+	addChild(unit7_menu);
+
+	////************* adds unit8 button ***********
+	auto unit8_normal = Sprite::create("unit8_norma.png");
+	if (unit8_normal == nullptr)
+	{
+		problemLoading("'start_normal or start_pressed.png'");
+	}
+	auto unit8_menu = Sprite::create("unit8_norma.png");
+	unit8_menu->setPosition(Vec2(origin.x + 365, origin.y + 20));
+	unit8_menu->setScale(0.6);
+	addChild(unit8_menu);
+
+	////************* adds unit9 button ***********
+	auto unit9_normal = Sprite::create("unit9_norma.png");
+	if (unit9_normal == nullptr)
+	{
+		problemLoading("'start_normal or start_pressed.png'");
+	}
+	auto unit9_menu = Sprite::create("unit9_norma.png");
+	unit9_menu->setPosition(Vec2(origin.x + 415, origin.y + 20));
+	unit9_menu->setScale(0.7);
+	addChild(unit9_menu);
+
+	//************* adds unit10 button ***********
 	auto unit10_menu = Sprite::create("unit10_norma.png");
-	unit10_menu->setPosition(Vec2(origin.x + 450, origin.y + 8));
+	unit10_menu->setPosition(Vec2(origin.x + 450, origin.y + 20));
 	unit10_menu->setScale(0.5);
 	addChild(unit10_menu);
-
-//	auto units_menu = Menu::create(unit6_menu, unit7_menu, unit8_menu, unit9_menu, unit10_menu,/*, license_item, credits_item*/ NULL);
-//	units_menu->setPosition(units_menu_pos);
-
-//	this->addChild(units_menu);
-
-
-	//unit6_normal->setScale(0.5);
-	//unit7_normal->setScale(0.6);
-	//unit8_normal->setScale(0.6);
-	//unit9_normal->setScale(0.6);
-	unit10_normal->setScale(0.3);
-
-
 
 
 	this->schedule(schedule_selector(BattleScene::updateGame));
@@ -353,7 +332,7 @@ void BattleScene::updateGame(float dt)
 {
 	for (auto unit : units)
 		if (!UnitCanGo(unit))
-			unit->sprite->stopAllActions();
+			unit->sprite->pauseSchedulerAndActions();
 		else
 			unit->sprite->resumeSchedulerAndActions();
 
@@ -363,8 +342,8 @@ void BattleScene::updateGame(float dt)
 				auto bbox_unit_a = unit_a->sprite->boundingBox();
 				auto bbox_unit_b = unit_b->sprite->boundingBox();
 
-				bbox_unit_a.origin.x += unit_a->speed;
-				bbox_unit_b.origin.x += unit_b->speed;
+				bbox_unit_a.origin.x += unit_a->delta_x;
+				bbox_unit_b.origin.x += unit_b->delta_x;
 
 				if (bbox_unit_a.intersectsRect(bbox_unit_b) && (unit_a->team != unit_b->team))
 				{
@@ -380,7 +359,19 @@ void BattleScene::updateGame(float dt)
 	for (auto unit : units)
 		if (unit->state == UnitState::Dead)
 			this->RemoveDeadUnit(unit);
-}
+
+	// Проверка, что игра закончена
+	if (player_tower->state == UnitState::Dead) {
+		// удалить спрайт со старой башней (removeChild)
+		// поместить спрайт с разрушенной башней
+		GameOver(false);
+	}
+	else if (computer_tower->state == UnitState::Dead) {
+		// удалить спрайт со старой башней (removeChild)
+		// поместить спрайт с разрушенной башней
+		GameOver(true);
+	}
+}		
 
 bool BattleScene::UnitCanGo(Unit * unit)
 {
@@ -391,8 +382,8 @@ bool BattleScene::UnitCanGo(Unit * unit)
 			auto bbox_unit = unit->sprite->boundingBox();
 			auto bbox_other_unit = other_unit->sprite->boundingBox();
 
-			bbox_unit.origin.x += unit->speed;
-			bbox_other_unit.origin.x += other_unit->speed;
+			bbox_unit.origin.x += unit->delta_x;
+			bbox_other_unit.origin.x += other_unit->delta_x;
 
 			if ((other_unit->team == unit->team) && ((other_unit->isTower) || (unit->isTower)))
 				continue;
@@ -403,26 +394,6 @@ bool BattleScene::UnitCanGo(Unit * unit)
 
 	return can_go;
 }
-
-//void BattleScene::unit2_select(Ref* sender)
-//{
-//	
-//}
-
-//void BattleScene::unit3_select(Ref* sender)
-//{
-//	
-//}
-
-//void BattleScene::unit4_select(Ref* sender)
-//{
-//	
-//}
-
-//void BattleScene::unit5_select(Ref* sender)
-//{
-//	
-//}
 
 
 
@@ -449,7 +420,11 @@ void BattleScene::unit_select_callback(int i)
 	}
 
 	unit->team = Team::Player;
-	unit->AddToBattleScene(this);
+
+	if (!IsGameOver) {
+		unit->AddToBattleScene(this);
+		ai.ReactPlayerUnitSelect(unit->id);
+	}
 }
 
 
@@ -495,29 +470,18 @@ void BattleScene::unit_select_callback(int i)
 //	scoreLabel->setString(p);
 //}
 
-void BattleScene::ShowGameOver(Ref* pObj)
+void BattleScene::GameOver(bool player_wins)
 {
-	//unschedule(schedule_selector(BattleScene::increaseScore));
-	//    BulletController::reset();
-	//    EnemyController::reset();
-	//auto gameoverlayer = GameOverLayer::create(this->score);
-	//addChild(gameoverlayer, 10);
-}
-
-void Unit::ReceiveAttackFromUnit(Unit * enemy)
-{
-	int d;
-	if (enemy->damage > this->defense) 
-		d = enemy->damage - this->defense;
-	else
-		d = 0;
-
-	this->hp = this->hp - d;
-	this->UpdateState();
-}
-
-void Unit::UpdateState()
-{
-	if (this->hp <= 0)
-		this->state = UnitState::Dead;
+	IsGameOver = true;
+	
+	if (player_wins)
+	{
+		// рисуем победу
+	}
+	else {
+		auto GameOver = Sprite::create("GameOver.png");
+		GameOver->setPosition(Vec2(250, 200));
+		GameOver->setScale(0.5);
+		addChild(GameOver);
+	}
 }

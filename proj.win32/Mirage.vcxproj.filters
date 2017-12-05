@@ -21,7 +21,13 @@
     <ClCompile Include="..\Classes\StartMenuScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Unit.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\BattleScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AI.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -36,6 +42,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BattleScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Unit.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AI.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
