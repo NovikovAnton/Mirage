@@ -78,7 +78,8 @@ bool BattleScene::init()
 
 	IsGameOver = false;
 
-	ai.bs = this;
+	ai = new RandomAI;
+	ai->bs = this;
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -97,6 +98,35 @@ bool BattleScene::init()
 		// add the sprite as a child to this layer
 		this->addChild(sprite);
 	}
+	/////////////////////////////////////////////////////////
+
+
+	button_back_menu = ui::Button::create("back_norma.png", "back_pres.png");
+	button_back_menu->setPosition(Vec2(225, 240));
+	button_back_menu->setScale(0.2);
+	button_back_menu->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		if (type == ui::Widget::TouchEventType::ENDED)
+		{
+			Director::getInstance()->popScene();
+		}}
+		);
+
+	this->addChild(button_back_menu);
+
+	//auto menu = Menu::create(back_game/*, license_item, credits_item*/, NULL);
+	//menu->setPosition(Vec2(origin.x, origin.y - 200));
+	//this->addChild(menu);
+
+	//void BattleScene::backgame(Ref* sender);
+	//{
+	//	back_game->runAction(Sequence::create(
+	//		ScaleTo::create(0.1f, 1.1f),
+	//		ScaleTo::create(0.1f, 1.1f),
+	//		ScaleTo::create(0.1f, 1.0f),
+	//		CallFunc::create(CC_CALLBACK_0(BattleScene::backgame_callback, this)), NULL));
+	//}
+
+	//////////////////////////////////////////////////////////
 
 	// Создание надписи "Battle"
 
@@ -362,13 +392,11 @@ void BattleScene::updateGame(float dt)
 
 	// Проверка, что игра закончена
 	if (player_tower->state == UnitState::Dead) {
-		// удалить спрайт со старой башней (removeChild)
-		// поместить спрайт с разрушенной башней
+
 		GameOver(false);
 	}
 	else if (computer_tower->state == UnitState::Dead) {
-		// удалить спрайт со старой башней (removeChild)
-		// поместить спрайт с разрушенной башней
+
 		GameOver(true);
 	}
 }		
@@ -423,7 +451,9 @@ void BattleScene::unit_select_callback(int i)
 
 	if (!IsGameOver) {
 		unit->AddToBattleScene(this);
-		ai.ReactPlayerUnitSelect(unit->id);
+		BlockPlayerUnitButtons();
+		this->schedule(schedule_selector(BattleScene::UnBlockPlayerUnitButtons), 1.0f);
+		ai->ReactPlayerUnitSelect(unit->id);
 	}
 }
 
@@ -470,18 +500,52 @@ void BattleScene::unit_select_callback(int i)
 //	scoreLabel->setString(p);
 //}
 
+void BattleScene::BlockPlayerUnitButtons()
+{
+	button_unit1->setEnabled(false);
+	button_unit2->setEnabled(false);
+	button_unit3->setEnabled(false);
+	button_unit4->setEnabled(false);
+	button_unit5->setEnabled(false);
+}
+
+void BattleScene::UnBlockPlayerUnitButtons(float dt)
+{
+	button_unit1->setEnabled(true);
+	button_unit2->setEnabled(true);
+	button_unit3->setEnabled(true);
+	button_unit4->setEnabled(true);
+	button_unit5->setEnabled(true);
+	this->unschedule(schedule_selector(BattleScene::UnBlockPlayerUnitButtons));
+}
+
 void BattleScene::GameOver(bool player_wins)
 {
 	IsGameOver = true;
 	
 	if (player_wins)
-	{
-		// рисуем победу
+	{	
+		// поместить спрайт с разрушенной башней
+		auto GameOver = Sprite::create("Tower2_over.png");
+		GameOver->setPosition(Vec2(450, 110));
+		GameOver->setScale(0.15);
+		addChild(GameOver);
+
+		auto GameOver2 = Sprite::create("you_won.png");
+		GameOver2->setPosition(Vec2(210, 192));
+		GameOver2->setScale(0.45);
+		addChild(GameOver2);
 	}
 	else {
-		auto GameOver = Sprite::create("GameOver.png");
-		GameOver->setPosition(Vec2(250, 200));
-		GameOver->setScale(0.5);
+		// поместить спрайт с разрушенной башней
+		auto GameOver = Sprite::create("Tower1_over.png");
+		GameOver->setPosition(Vec2(32, 110));
+		GameOver->setScale(0.15);
 		addChild(GameOver);
+		
+		auto GameOver2 = Sprite::create("GameOver.png");
+		GameOver2->setPosition(Vec2(250, 200));
+		GameOver2->setScale(0.5);
+		addChild(GameOver2);
 	}
 }

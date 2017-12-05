@@ -28,7 +28,10 @@ public:
 
 	void unit_select_callback(int i);
 
-	AI ai;
+	AI* ai;
+
+	void BlockPlayerUnitButtons();
+	void UnBlockPlayerUnitButtons(float dt);
 
 private:
 	void GameOver(bool player_wins);
@@ -42,6 +45,8 @@ private:
 	ui::Button * button_unit3;
 	ui::Button * button_unit4;
 	ui::Button * button_unit5;
+
+	ui::Button * button_back_menu;
 
 	std::vector<Unit*> units;
 

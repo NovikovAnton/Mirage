@@ -116,7 +116,8 @@ void StartMenuScene::exitgame(Ref* sender)
 void StartMenuScene::startgame_callback()
 {
 	auto scene = BattleScene::createScene();
-	Director::getInstance()->replaceScene(scene);
+	Director::getInstance()->pushScene(scene);
+//	Director::getInstance()->replaceScene(scene);
 }
 
 void StartMenuScene::exitgame_callback()

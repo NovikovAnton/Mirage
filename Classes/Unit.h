@@ -72,9 +72,9 @@ public:
 	Unit2() {
 		id = UnitID::ID2;
 		hp = 150;
-		damage = 30;
-		delta_x = 10;
+		damage = 30;	
 		defense = 7;
+		delta_x = 10;
 		state = UnitState::Running;
 		team = Team::Player;
 	};
@@ -105,6 +105,7 @@ public:
 		hp = 250;
 		damage = 50;
 		defense = 15;
+		delta_x = 10;
 		state = UnitState::Running;
 		team = Team::Player;
 	};
@@ -120,6 +121,7 @@ public:
 		hp = 500;
 		damage = 80;
 		defense = 25;
+		delta_x = 10;
 		state = UnitState::Running;
 		team = Team::Player;
 	};
@@ -147,6 +149,7 @@ public:
 		hp = 100;
 		damage = 50;
 		defense = 3;
+		delta_x = -10;
 		state = UnitState::Running;
 		team = Team::Computer;
 	};
@@ -160,6 +163,7 @@ public:
 		hp = 200;
 		damage = 20;
 		defense = 15;
+		delta_x = -10;
 		state = UnitState::Running;
 		team = Team::Computer;
 	};
@@ -173,6 +177,7 @@ public:
 		hp = 500;
 		damage = 20;
 		defense = 25;
+		delta_x = -10;
 		state = UnitState::Running;
 		team = Team::Computer;
 	};
@@ -186,6 +191,7 @@ public:
 		hp = 500;
 		damage = 80;
 		defense = 25;
+		delta_x = -10;
 		state = UnitState::Running;
 		team = Team::Computer;
 	};
