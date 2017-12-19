@@ -56,4 +56,13 @@
       <Filter>resource</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd">
+      <Filter>src</Filter>
+    </None>
+    <None Include="ClassDiagram2.cd">
+      <Filter>src</Filter>
+    </None>
+  </ItemGroup>
 </Project>

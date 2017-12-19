@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Базовый класс для искусственного интеллекта">
+    <Position X="0.854" Y="1.028" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="Базовый класс для ИИ, основанных на датчике случайных чисел">
+    <Position X="0.817" Y="3.397" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="AI">
+    <Position X="2.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>C:\cocos2d-x-3.16\Project\Mirage\Classes\AI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RandomAI">
+    <Position X="2.75" Y="2.75" Width="2.25" />
+    <InheritanceLine Type="AI" FixedToPoint="true">
+      <Path>
+        <Point X="3.75" Y="2.055" />
+        <Point X="3.75" Y="2.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAQAAAAAAAAAQAAAAAAAAAAAAAAAEAAAABA=</HashCode>
+      <FileName>C:\cocos2d-x-3.16\Project\Mirage\Classes\AI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EasyRandomAI">
+    <Position X="0.5" Y="5.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\cocos2d-x-3.16\Project\Mirage\Classes\AI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HardRandomAI">
+    <Position X="4.25" Y="5.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\cocos2d-x-3.16\Project\Mirage\Classes\AI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

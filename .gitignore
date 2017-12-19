@@ -15,7 +15,7 @@
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
-[Rr]elease/
+proj.win32/Release.win32/
 [Rr]eleases/
 x64/
 x86/
@@ -286,3 +286,11 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+###
+*.exe
+*.tlog
+*.lib
+*.exp
+*.dll
+proj.win32/Release.win32/*.lib

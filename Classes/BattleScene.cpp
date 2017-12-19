@@ -10,11 +10,47 @@ USING_NS_CC;
 BattleScene::~BattleScene()
 {
 	//NotificationCenter::getInstance()->destroyInstance();
+	delete ai;
 }
 
 void BattleScene::AddUnit(Unit * unit)
 {
 	units.push_back(unit);
+}
+
+void BattleScene::setComplexity(Complexity c)
+{
+	this->c = c;
+	std::string s;
+
+	if (c == Complexity::Easy)
+	{
+		ai = new EasyRandomAI;
+		s = "Easy";
+	}
+	if (c == Complexity::Hard){
+		ai = new HardRandomAI;
+		s = "Hard";
+    }
+
+	ai->bs = this;
+
+
+
+	auto label1 = Label::createWithTTF(s, "fonts/Marker Felt.ttf", 10);
+	label1->setColor(Color3B::ORANGE);
+	if (label1 == nullptr)
+	{
+		//problemLoading("'fonts/Marker Felt.ttf'");
+	}
+	else
+	{
+		// Устанавливаем положение надписи
+		label1->setPosition(Vec2(270, 276));
+
+		// add the label as a child to this layer
+		this->addChild(label1);
+	}
 }
 
 void BattleScene::RemoveDeadUnit(Unit * unit)
@@ -78,8 +114,8 @@ bool BattleScene::init()
 
 	IsGameOver = false;
 
-	ai = new RandomAI;
-	ai->bs = this;
+//	ai = new EasyRandomAI;
+//	ai->bs = this;
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -102,31 +138,18 @@ bool BattleScene::init()
 
 
 	button_back_menu = ui::Button::create("back_norma.png", "back_pres.png");
-	button_back_menu->setPosition(Vec2(225, 240));
-	button_back_menu->setScale(0.2);
+	button_back_menu->setPosition(Vec2(210, 280));
+	button_back_menu->setScale(0.3);
 	button_back_menu->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		if (type == ui::Widget::TouchEventType::ENDED)
 		{
 			Director::getInstance()->popScene();
-		}}
-		);
+		}
+	}
+);
 
 	this->addChild(button_back_menu);
 
-	//auto menu = Menu::create(back_game/*, license_item, credits_item*/, NULL);
-	//menu->setPosition(Vec2(origin.x, origin.y - 200));
-	//this->addChild(menu);
-
-	//void BattleScene::backgame(Ref* sender);
-	//{
-	//	back_game->runAction(Sequence::create(
-	//		ScaleTo::create(0.1f, 1.1f),
-	//		ScaleTo::create(0.1f, 1.1f),
-	//		ScaleTo::create(0.1f, 1.0f),
-	//		CallFunc::create(CC_CALLBACK_0(BattleScene::backgame_callback, this)), NULL));
-	//}
-
-	//////////////////////////////////////////////////////////
 
 	// Создание надписи "Battle"
 
@@ -452,42 +475,10 @@ void BattleScene::unit_select_callback(int i)
 	if (!IsGameOver) {
 		unit->AddToBattleScene(this);
 		BlockPlayerUnitButtons();
-		this->schedule(schedule_selector(BattleScene::UnBlockPlayerUnitButtons), 1.0f);
+		this->schedule(schedule_selector(BattleScene::UnBlockPlayerUnitButtons), 0.5f);
 		ai->ReactPlayerUnitSelect(unit->id);
 	}
 }
-
-
-
-//void BattleScene::unit6_select_callback()
-//{
-//	//auto scene = BattleScene::createScene();
-//	//Director::getInstance()->replaceScene(scene);
-//}
-//
-//void BattleScene::unit7_select_callback()
-//{
-//	//auto scene = BattleScene::createScene();
-//	//Director::getInstance()->replaceScene(scene);
-//}
-//
-//void BattleScene::unit8_select_callback()
-//{
-//	//auto scene = BattleScene::createScene();
-//	//Director::getInstance()->replaceScene(scene);
-//}
-//
-//void BattleScene::unit9_select_callback()
-//{
-//	//auto scene = BattleScene::createScene();
-//	//Director::getInstance()->replaceScene(scene);
-//}
-//
-//void BattleScene::unit10_select_callback()
-//{
-//	//auto scene = BattleScene::createScene();
-//	//Director::getInstance()->replaceScene(scene);
-//}
 
 
 //void BattleScene::increaseScore(float dt) {

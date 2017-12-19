@@ -35,7 +35,7 @@ void Unit1::AddToBattleScene(BattleScene * scene)
 void Unit2::AddToBattleScene(BattleScene * scene)
 {
 		sprite = Sprite::create("unit2_norma.png");
-		sprite->setPosition(Vec2(45, 100));
+		sprite->setPosition(Vec2(45, 95));
 		sprite->setScale(0.5);
 		scene->addChild(sprite);
 
@@ -48,7 +48,7 @@ void Unit2::AddToBattleScene(BattleScene * scene)
 void Unit3::AddToBattleScene(BattleScene * scene)
 {
 	sprite = Sprite::create("unit3_norma.png");
-	sprite->setPosition(Vec2(45, 100));
+	sprite->setPosition(Vec2(45, 95));
 	sprite->setScale(0.5);
 	scene->addChild(sprite);
 
@@ -61,7 +61,7 @@ void Unit3::AddToBattleScene(BattleScene * scene)
 void Unit4::AddToBattleScene(BattleScene * scene)
 {
 	sprite = Sprite::create("unit4_norma.png");
-	sprite->setPosition(Vec2(45, 100));
+	sprite->setPosition(Vec2(45, 95));
 	sprite->setScale(0.5);
 	scene->addChild(sprite);
 
@@ -87,65 +87,65 @@ void Unit5::AddToBattleScene(BattleScene * scene)
 void Unit6::AddToBattleScene(BattleScene * scene)
 {
 	sprite = Sprite::create("unit6_norma.png");
-	sprite->setPosition(Vec2(450, 100));
+	sprite->setPosition(Vec2(450, 97));
 	sprite->setScale(0.5);
 	scene->addChild(sprite);
 
 	scene->AddUnit(this);
 
-	auto moveBy1 = MoveBy::create(4, Vec2(-400, 0));
+	auto moveBy1 = MoveBy::create(4, Vec2(-430, 0));
 	sprite->runAction(moveBy1);
 }
 
 void Unit7::AddToBattleScene(BattleScene * scene)
 {
 	sprite = Sprite::create("unit7_norma.png");
-	sprite->setPosition(Vec2(450, 100));
-	sprite->setScale(0.5);
+	sprite->setPosition(Vec2(450, 92));
+	sprite->setScale(0.6);
 	scene->addChild(sprite);
 
 	scene->AddUnit(this);
 
-	auto moveBy1 = MoveBy::create(4, Vec2(-400, 0));
+	auto moveBy1 = MoveBy::create(4, Vec2(-430, 0));
 	sprite->runAction(moveBy1);
 }
 
 void Unit8::AddToBattleScene(BattleScene * scene)
 {
 	sprite = Sprite::create("unit8_norma.png");
-	sprite->setPosition(Vec2(450, 100));
-	sprite->setScale(0.5);
+	sprite->setPosition(Vec2(450, 95));
+	sprite->setScale(0.6);
 	scene->addChild(sprite);
 
 	scene->AddUnit(this);
 
-	auto moveBy1 = MoveBy::create(4, Vec2(-400, 0));
+	auto moveBy1 = MoveBy::create(4, Vec2(-430, 0));
 	sprite->runAction(moveBy1);
 }
 
 void Unit9::AddToBattleScene(BattleScene * scene)
 {
 	sprite = Sprite::create("unit9_norma.png");
-	sprite->setPosition(Vec2(45, 100));
-	sprite->setScale(0.5);
+	sprite->setPosition(Vec2(450, 95));
+	sprite->setScale(0.7);
 	scene->addChild(sprite);
 
 	scene->AddUnit(this);
 
-	auto moveBy1 = MoveBy::create(4, Vec2(400, 0));
+	auto moveBy1 = MoveBy::create(4, Vec2(-430, 0));
 	sprite->runAction(moveBy1);
 }
 
 void Unit10::AddToBattleScene(BattleScene * scene)
 {
 	sprite = Sprite::create("unit10_norma.png");
-	sprite->setPosition(Vec2(45, 100));
+	sprite->setPosition(Vec2(450, 95));
 	sprite->setScale(0.5);
 	scene->addChild(sprite);
 
 	scene->AddUnit(this);
 
-	auto moveBy1 = MoveBy::create(4, Vec2(400, 0));
+	auto moveBy1 = MoveBy::create(4, Vec2(-430, 0));
 	sprite->runAction(moveBy1);
 }
 

@@ -65,16 +65,28 @@ bool StartMenuScene::init()
 
    
 
-	//************* adds start game ***********
-	auto start_normal = Sprite::create("start_norma.png");
-	auto start_pressed = Sprite::create("start_pres.png");
-	if (start_normal == nullptr || start_pressed == nullptr)
+	//************* adds start game easy ***********
+	auto start_normal_easy = Sprite::create("start_norma.png");
+	auto start_pressed_easy = Sprite::create("start_pres.png");
+	if (start_normal_easy == nullptr || start_pressed_easy == nullptr)
 	{
 		problemLoading("'start_normal or start_pressed.png'");
 	}
-	start_game = MenuItemSprite::create(start_normal, start_pressed, CC_CALLBACK_1(StartMenuScene::startgame, this));
-	start_game->setPosition(visibleSize.width / 2, 300);
-	start_game->setScale(1.0);
+	start_game_easy = MenuItemSprite::create(start_normal_easy, start_pressed_easy, CC_CALLBACK_1(StartMenuScene::startgame, this, Complexity::Easy));
+	start_game_easy->setPosition(visibleSize.width / 2, 325);
+	start_game_easy->setScale(1.0);
+
+	////////////////adds start game hard
+
+	auto start_normal_hard = Sprite::create("start_norma2.png");
+	auto start_pressed_hard = Sprite::create("start_pres2.png");
+	if (start_normal_hard == nullptr || start_pressed_hard == nullptr)
+	{
+		problemLoading("'start_normal or start_pressed.png'");
+	}
+	start_game_hard = MenuItemSprite::create(start_normal_hard, start_pressed_hard, CC_CALLBACK_1(StartMenuScene::startgame, this, Complexity::Hard));
+	start_game_hard->setPosition(visibleSize.width / 2, 285);
+	start_game_hard->setScale(1.0);
 
 //************* adds Exit game ***********
 	auto exit_normal = Sprite::create("exit_norma.png");
@@ -85,23 +97,23 @@ bool StartMenuScene::init()
 	}
 
 	exit_game = MenuItemSprite::create(exit_normal, exit_pressed, CC_CALLBACK_1(StartMenuScene::exitgame, this));
-	exit_game->setPosition(visibleSize.width / 2, 250);
+	exit_game->setPosition(visibleSize.width / 2, 230);
 	exit_game->setScale(1.0);
 
-	auto menu = Menu::create(start_game, exit_game/*, license_item, credits_item*/, NULL);
+	auto menu = Menu::create(start_game_easy, start_game_hard, exit_game/*, license_item, credits_item*/, NULL);
 	menu->setPosition(Vec2(origin.x, origin.y - 200));
 	this->addChild(menu);
 
     return true;
 }
 
-void StartMenuScene::startgame(Ref* sender)
+void StartMenuScene::startgame(Ref* sender, Complexity c)
 {
-	start_game->runAction(Sequence::create(
+	((MenuItemSprite*)sender)->runAction(Sequence::create(
 		ScaleTo::create(0.1f, 1.1f),
 		ScaleTo::create(0.1f, 1.1f),
 		ScaleTo::create(0.1f, 1.0f),
-		CallFunc::create(CC_CALLBACK_0(StartMenuScene::startgame_callback, this)), NULL));
+		CallFunc::create(CC_CALLBACK_0(StartMenuScene::startgame_callback, this, c)), NULL));
 }
 
 void StartMenuScene::exitgame(Ref* sender)
@@ -113,9 +125,13 @@ void StartMenuScene::exitgame(Ref* sender)
 		CallFunc::create(CC_CALLBACK_0(StartMenuScene::exitgame_callback, this)), NULL));
 }
 
-void StartMenuScene::startgame_callback()
+void StartMenuScene::startgame_callback(Complexity c)
 {
 	auto scene = BattleScene::createScene();
+
+	//((BattleScene*)scene)->setComplexity(c);
+	((BattleScene*)scene->getChildByTag(100))->setComplexity(c);
+
 	Director::getInstance()->pushScene(scene);
 //	Director::getInstance()->replaceScene(scene);
 }

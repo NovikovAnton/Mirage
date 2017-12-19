@@ -7,6 +7,12 @@
 
 USING_NS_CC;
 
+enum class Complexity
+{
+	Easy,
+	Hard
+};
+
 class BattleScene : public cocos2d::Scene
 {
 public:
@@ -22,6 +28,8 @@ public:
 	~BattleScene();
 
 	void AddUnit(Unit* unit);
+
+	void setComplexity(Complexity c);
 
 	void RemoveDeadUnit(Unit* unit);
 	void unit_dead_callback(Unit* unit);
@@ -54,4 +62,6 @@ private:
 	Unit* computer_tower;
 
 	bool IsGameOver;
+
+	Complexity c;
 };

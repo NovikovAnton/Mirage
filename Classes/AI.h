@@ -17,14 +17,20 @@ class RandomAI : public AI
 {
 public:
 	std::uniform_int_distribution<> RandomGen;
-	virtual void ReactPlayerUnitSelect(UnitID id);
+	virtual void ReactPlayerUnitSelect(UnitID id) = 0;
 
 	RandomAI() : RandomGen(1, 100), gen(rd()) {};
 	std::random_device rd;
 	std::mt19937 gen;
 };
 
-class HardAI : public AI
+class EasyRandomAI : public RandomAI
+{
+public:
+	virtual void ReactPlayerUnitSelect(UnitID id);
+};
+
+class HardRandomAI : public RandomAI
 {
 public:
 	virtual void ReactPlayerUnitSelect(UnitID id);

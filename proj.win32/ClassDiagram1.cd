@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Complexity играет роль в выборе уровня сложности">
+    <Position X="4.19" Y="0.5" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="Кнопки вызова юнитов ">
+    <Position X="3.966" Y="2.183" Height="0.415" Width="1.7" />
+  </Comment>
+  <Class Name="BattleScene">
+    <Position X="1" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>BAgsgAAAAQABCAEAIARIAAAAAQAQAAKAABAAACCAAAA=</HashCode>
+      <FileName>C:\cocos2d-x-3.16\Project\Mirage\Classes\BattleScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Complexity">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>C:\cocos2d-x-3.16\Project\Mirage\Classes\BattleScene.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

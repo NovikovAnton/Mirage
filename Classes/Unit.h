@@ -58,7 +58,7 @@ public:
 		hp = 100;
 		damage = 20;
 		defense = 5;
-		delta_x = 10;
+		delta_x = 0;
 		isTower = false;
 		state = UnitState::Running;
 		team = Team::Player;
@@ -74,7 +74,7 @@ public:
 		hp = 150;
 		damage = 30;	
 		defense = 7;
-		delta_x = 10;
+		delta_x = 0;
 		state = UnitState::Running;
 		team = Team::Player;
 	};
@@ -89,7 +89,7 @@ public:
 		hp = 400;
 		damage = 20;
 		defense = 10;
-		delta_x = 10;
+		delta_x = 0;
 		state = UnitState::Running;
 		team = Team::Player;
 	};
@@ -105,7 +105,7 @@ public:
 		hp = 250;
 		damage = 50;
 		defense = 15;
-		delta_x = 10;
+		delta_x = 0;
 		state = UnitState::Running;
 		team = Team::Player;
 	};
@@ -121,7 +121,7 @@ public:
 		hp = 500;
 		damage = 80;
 		defense = 25;
-		delta_x = 10;
+		delta_x = 0;
 		state = UnitState::Running;
 		team = Team::Player;
 	};
@@ -135,7 +135,7 @@ public:
 		hp = 100;
 		damage = 25;
 		defense = 0;
-		delta_x = -10;
+		delta_x = 0;
 		state = UnitState::Running;
 		team = Team::Computer;
 	};
@@ -149,7 +149,7 @@ public:
 		hp = 100;
 		damage = 50;
 		defense = 3;
-		delta_x = -10;
+		delta_x = 0;
 		state = UnitState::Running;
 		team = Team::Computer;
 	};
@@ -163,7 +163,7 @@ public:
 		hp = 200;
 		damage = 20;
 		defense = 15;
-		delta_x = -10;
+		delta_x = 0;
 		state = UnitState::Running;
 		team = Team::Computer;
 	};
@@ -177,7 +177,7 @@ public:
 		hp = 500;
 		damage = 20;
 		defense = 25;
-		delta_x = -10;
+		delta_x = 0;
 		state = UnitState::Running;
 		team = Team::Computer;
 	};
@@ -191,7 +191,7 @@ public:
 		hp = 500;
 		damage = 80;
 		defense = 25;
-		delta_x = -10;
+		delta_x = 0;
 		state = UnitState::Running;
 		team = Team::Computer;
 	};
